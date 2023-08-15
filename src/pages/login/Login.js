@@ -28,7 +28,6 @@ const Login = () => {
         const res = await login(user)
       
         console.log(user);
-
     };
 
   return (

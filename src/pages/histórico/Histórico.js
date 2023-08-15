@@ -1,4 +1,4 @@
-import React , {useState, useContext} from 'react'
+import React, {useState, useContext} from 'react'
 import { useFetchDocuments } from '../../hooks/useFetchDocuments'
 import { AuthContext } from '../../context/AuthContext'
 import { FormGroup, Label, Form, Input, Card, Button, Table  } from 'reactstrap';
@@ -6,10 +6,12 @@ import Editar from '../editar/Editar';
 
 import { db } from '../../firebase/config';
 import { collection, doc, deleteDoc } from 'firebase/firestore';
-// import { collection, query, where, getDocs } from "firebase/firestore";
+import Viagem from '../viagem/Viagem';
+import { useNavigate } from 'react-router-dom';
 
 const Histórico = () => {
 
+const navigate = useNavigate();
  //get
 const  {documents: posts, loading } = useFetchDocuments("posts")
 const [mes, setMes] = useState("");
@@ -18,22 +20,40 @@ const [ano, setAno] = useState("");
 const [showModal, setShowModal] = useState(false)
 const {user} = useContext(AuthContext)
 
+const [editDoc, setEditDoc] = useState([]);
+
+//FILTRO DE PESQUISA
 const search = () => {
   console.log(user)
   if (ano === "" || mes === "") {
     setPostsFiltrados([])
   } else {
-  let aux = posts.filter( p => { if(p.data.includes(ano + "-" + mes) && p.ui == user.uid) return p}); //`${ano}-${mes}`[]
-  setPostsFiltrados(aux);
+    let aux = posts.filter(p => { 
+      if(p.data.includes(ano + "-" + mes) && p.ui == user.uid)
+        return p
+      }
+    );
+    setPostsFiltrados(aux);
   }
 };
 
-  const editar = (post)=>{
-    setShowModal(true)
-    console.log('func Editar')
-    console.log(post)
-  }
+//EDIÇÃO
+   const editar = async(id)=> {
+     console.log(id)
+     
+      // let aux = posts.filter(p => {
+      let aux = posts.set(p => {
 
+      p.data.includes(db, id)});// <<<<<------CARREGAR DADOS DO ID
+
+      setEditDoc(aux)
+
+      console.log('EDITAR')
+      console.log(editDoc)
+   }
+
+
+//DELEÇÃO
   const deletar = async(id) => {
     try {
       await deleteDoc(doc(collection(db, 'posts'), id));
@@ -44,7 +64,6 @@ const search = () => {
     }
   }
   
-
   return (
     <div>
        {/* ANO */}
@@ -114,10 +133,7 @@ const search = () => {
                 <td>{post.hoProduzido}</td>
                 <td>{post.observações}</td>
                 <td>
-                  {/* <Button component={props =>
-                  <Link to={privateUrls.edit.patWithouParam + NavItem.key}{...props}/>}>
-                  Edit
-                  </Button> */}
+
                   <button  className="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={()=>editar(post.id)}>Editar</button>
                 </td>
                 <td><button  className="btn btn-danger" onClick={()=>deletar(post.id)}>X</button></td>

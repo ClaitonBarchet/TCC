@@ -102,6 +102,7 @@ import Histórico from "./pages/histórico/Histórico";
             <Route  path="/login" element={!user ? <Login /> : <Navigate to="/" />} />
             <Route  path="/cadastrar" element={!user ? <Cadastrar /> : <Navigate to="/" />} />
             <Route  path="/about" element={<About />} />
+            <Route  path="/editar-viagem" element={<Viagem />} />
           </Routes>
         </BrowserRouter>
       </AuthProvider>

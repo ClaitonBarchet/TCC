@@ -1,10 +1,11 @@
 import React from 'react'
 
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useAuthValue } from "../../context/AuthContext";
 import { useInsertDocument } from "../../hooks/useInsertDocument";
 import { FormGroup, Label, Form, Input, Card, Button  } from 'reactstrap';
+import { useFetchDocuments } from '../../hooks/useFetchDocuments';
 
 const Viagem = () => {
   const [data, setData ] = useState("");
@@ -21,15 +22,20 @@ const Viagem = () => {
   const [formError, setFormError] = useState("");
   const {user} = useAuthValue();
 
+  const location = useLocation()
+  let id = location.state
+
   const {insertDocument, response} = useInsertDocument("posts");
 
   const navigate = useNavigate()
+  
+  const editarViagem = () => {
+ 
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setFormError("")
-
-  // const hoProduzido = parseFloat(hoFinal) - parseFloat(hoInicial)
     
   // checar todos os valores
   if (!placa || !carregamento || !cliente || !volume || !hoInicial || !hoFinal || !data){
