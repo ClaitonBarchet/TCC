@@ -38,18 +38,33 @@ const search = () => {
 };
 
 //EDIÇÃO
-   const editar = async(id)=> {
-     console.log(id)
-     
-      // let aux = posts.filter(p => {
-      let aux = posts.set(p => {
-
-      p.data.includes(db, id)});// <<<<<------CARREGAR DADOS DO ID
-
-      setEditDoc(aux)
-
-      console.log('EDITAR')
-      console.log(editDoc)
+   const editar = async(
+    id,
+    data,
+    placa,
+    carregamento,
+    cliente,
+    material,
+    volume,
+    hoInicial,
+    hoFinal,
+    hoProduzido,
+    observações
+    )=> {
+    
+     console.log(
+      id,
+      data,
+      placa,
+      carregamento,
+      cliente,
+      material,
+      volume,
+      hoInicial,
+      hoFinal,
+      hoProduzido,
+      observações
+      )
    }
 
 
@@ -134,7 +149,7 @@ const search = () => {
                 <td>{post.observações}</td>
                 <td>
 
-                  <button  className="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={()=>editar(post.id)}>Editar</button>
+                  <button  className="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={()=>editar(post)}>Editar</button>
                 </td>
                 <td><button  className="btn btn-danger" onClick={()=>deletar(post.id)}>X</button></td>
               </tr>
