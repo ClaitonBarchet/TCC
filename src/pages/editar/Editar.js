@@ -83,7 +83,7 @@ const Viagem = () => {
         <div className="d-flex justify-content-center">
         <Card style={{width: '18rem'}}>
         <Form onSubmit={handleSubmit} className="ms-2 me-2">
-        <h3>NOVA VIAGEM</h3>
+        <h3>EDIÇÃO DE VIAGEM</h3>
 
 
           {/*DATA*/}
@@ -150,7 +150,6 @@ const Viagem = () => {
             />
             </FormGroup>
 
-            
           {/*MATERIAL*/}
           <FormGroup>
           <Label>
@@ -217,7 +216,6 @@ const Viagem = () => {
             value={hoFinal}
             />
           </FormGroup>      
-
 
           {/*OBSERVAÇÕES*/}
           <FormGroup>
