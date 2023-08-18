@@ -7,32 +7,28 @@ import { useInsertDocument } from "../../hooks/useInsertDocument";
 import { FormGroup, Label, Form, Input, Card, Button  } from 'reactstrap';
 import { useFetchDocuments } from '../../hooks/useFetchDocuments';
 
-const Viagem = () => {
-  const [data, setData ] = useState("");
-  const [placa, setPlaca ] = useState("");
-  const [carregamento, setCarregamento] = useState("");
-  const [cliente, setCliente ] = useState("");
-  const [material, setMaterial ] = useState("");
-  const [volume, setVolume ] = useState("");
-  const [hoInicial, setHoInicial ] = useState("");
-  const [hoFinal, setHoFinal ] = useState("");
-  const [hoProduzido, setHoProduzido ] = useState("");
-  const [observações, setObservações ] = useState("");
+const Editar = () => {
+  const location = useLocation();
+  const dados = location.state.post
+
+  const [data, setData ] = useState(dados.data);
+  const [placa, setPlaca ] = useState(dados.placa);
+  const [carregamento, setCarregamento] = useState(dados.carregamento);
+  const [cliente, setCliente ] = useState(dados.cliente);
+  const [material, setMaterial ] = useState(dados.material);
+  const [volume, setVolume ] = useState(dados.volume);
+  const [hoInicial, setHoInicial ] = useState(dados.hoInicial);
+  const [hoFinal, setHoFinal ] = useState(dados.hoFinal);
+  const [hoProduzido, setHoProduzido ] = useState(dados.hoProduzido);
+  const [observações, setObservações ] = useState(dados.observações);
 
   const [formError, setFormError] = useState("");
   const {user} = useAuthValue();
-
-  const location = useLocation()
-  let id = location.state
 
   const {insertDocument, response} = useInsertDocument("posts");
 
   const navigate = useNavigate()
   
-  const editarViagem = () => {
- 
-  }
-
   const handleSubmit = (e) => {
     e.preventDefault();
     setFormError("")
@@ -60,7 +56,6 @@ const Viagem = () => {
     observações  
   })
 
-
   setData("")
   setPlaca("")
   setCarregamento("")
@@ -71,10 +66,9 @@ const Viagem = () => {
   setHoFinal("")
   setObservações("")
 
-  alert("Viagem registrada com sucesso!")
- // redirect to home page
+  alert("Edição realizada com sucesso!")
+
  navigate("/");
-//  window.location.reload(true);//COMANDO PARA RECARREGAR A PÁGINA
 
 }
 
@@ -115,6 +109,7 @@ const Viagem = () => {
             placeholder="Placa do veículo"
             onChange={(e) => setPlaca(e.target.value)}
             value={placa}
+            // value={selectedRecord.data}
             />
             </FormGroup>
 
@@ -253,4 +248,4 @@ const Viagem = () => {
     )
   }
 
-export default Viagem
+export default Editar
