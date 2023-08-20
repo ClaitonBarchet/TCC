@@ -14,7 +14,6 @@ const Cadastrar = () => {
       const handleSubmit = async (e) => {
        e.preventDefault()
        setError(null)
-        // const = constante; let = variável (var)
 
         const user = {
             displayName,

@@ -19,6 +19,7 @@ import Login from "./pages/login/Login";
 import About from "./pages/about/About";
 import Cadastrar from "./pages/cadastrar/Cadastrar";
 import Histórico from "./pages/histórico/Histórico";
+import Editar from "./pages/editar/Editar";
 
  function App() {
    // AUTENTICAÇAO DO USUÁRIO
@@ -102,7 +103,8 @@ import Histórico from "./pages/histórico/Histórico";
             <Route  path="/login" element={!user ? <Login /> : <Navigate to="/" />} />
             <Route  path="/cadastrar" element={!user ? <Cadastrar /> : <Navigate to="/" />} />
             <Route  path="/about" element={<About />} />
-            <Route  path="/editar-viagem" element={<Viagem />} />
+            <Route  path="/editar" component = {Editar} element={user ? <Editar /> : <Navigate to="/Editar" />} />
+            
           </Routes>
         </BrowserRouter>
       </AuthProvider>

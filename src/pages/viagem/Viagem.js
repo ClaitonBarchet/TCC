@@ -5,7 +5,6 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useAuthValue } from "../../context/AuthContext";
 import { useInsertDocument } from "../../hooks/useInsertDocument";
 import { FormGroup, Label, Form, Input, Card, Button  } from 'reactstrap';
-import { useFetchDocuments } from '../../hooks/useFetchDocuments';
 
 const Viagem = () => {
   const [data, setData ] = useState("");
@@ -85,7 +84,6 @@ const Viagem = () => {
         <Form onSubmit={handleSubmit} className="ms-2 me-2">
         <h3>NOVA VIAGEM</h3>
 
-
           {/*DATA*/}
           <FormGroup className="text-start mt-2">
           <Label>
@@ -149,7 +147,6 @@ const Viagem = () => {
             value={cliente}
             />
             </FormGroup>
-
             
           {/*MATERIAL*/}
           <FormGroup>
@@ -217,7 +214,6 @@ const Viagem = () => {
             value={hoFinal}
             />
           </FormGroup>      
-
 
           {/*OBSERVAÇÕES*/}
           <FormGroup>

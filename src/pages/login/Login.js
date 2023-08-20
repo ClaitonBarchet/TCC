@@ -1,20 +1,27 @@
-import{ useState, useEffect } from "react";
-import {FormGroup, Label, Form, Input, Card, Button  } from 'reactstrap';
+import { useState, useEffect } from "react";
+import { FormGroup, Label, Form, Input, Card, Button  } from 'reactstrap';
 import { useAuthentication } from "../../hooks/useAuthentication";
+import {
+  getAuth,
+  createUsrWithEmailAnPassword,
+  signInWithEmailAndPassword,
+  updateProfile,
+  signOut,
+  createUserWithEmailAndPassword
+} from 'firebase/auth'
 
 const Login = () => {
-    const [displayName, setDisplayName] = useState ("")
-    const [sobrename, setSobrename] = useState("")
-    const [emailconcatenado] = useState("")
-    const [password, setPassword] = useState("")
-    const {error,setError, loading } = useAuthentication();
+    const [ displayName, setDisplayName] = useState ("")
+    const [ sobrename, setSobrename] = useState("")
+    const [ emailconcatenado] = useState("")
+    const [ password, setPassword] = useState("")
+    const { error, setError, loading } = useAuthentication();
     const { login, error: authError } = useAuthentication();
 
     // MÉTODO
       const handleSubmit = async (e) => {
        e.preventDefault()
        setError(null)
-        // const = constante; let = variável (var)
 
         const user = {
             displayName,
@@ -22,13 +29,31 @@ const Login = () => {
             password,
             emailconcatenado: displayName+"."+sobrename+"@email.com.br"
         }
-        console.log(emailconcatenado)
-        // let emailconcatenado = user.displayName+"."+user.sobrename+"@email.com.br"
-
+        // console.log(emailconcatenado)
+try{
         const res = await login(user)
-      
-        console.log(user);
-    };
+        // console.log(user)
+        console.log(error.code)
+        console.log(error.message)
+         console.log(typeof error.message)
+  } catch (error) {
+    // ERRO SENHA ERRADA, ARRUMAR - QUAL O CODIGO DO ERRO?
+        console.log("ESTOU AQUI")
+         console.log(error.message)
+         console.log(typeof error.message)
+         console.log(systemErrorMessage)
+
+         let systemErrorMessage
+
+        // setLoading(false);
+        // setError(systemErrorMessage);
+        // console.log(systemErrorMessage)
+
+        if(error.code === "auth/weak-password"){
+          systemErrorMessage  = "A senha não confere.";
+      }
+  }
+  }
 
   return (
     <div>
@@ -37,19 +62,18 @@ const Login = () => {
           <Card style={{width: '18rem'}}>
             
             <Form onSubmit={handleSubmit} className="ms-2 me-2">
+
               <FormGroup className="text-start mt-2" >
               <h3>LOGIN</h3>
                 <Label  for="exampleText"> 
                 Nome:
                 </Label>
                 <Input
-
                   type="name"
                   name="displayName"
                   style={{textTransform:"uppercase"}}
                   required
                   placeholder="Nome do usuário"
-    
                   value={displayName}
                   onChange={(e) => setDisplayName(e.target.value)}
                   />
@@ -88,16 +112,13 @@ const Login = () => {
 
           {/*CADASTRAR*/}
           <p>
-          {!loading && <Button color="primary" outline>
-              Logar
-            </Button>
-          
-          // <button className="btn">Logar</button>
-        }
+          {!loading && <Button color="primary" outline>Logar</Button>}
 
           {loading && (<button className="btn" disabled>Aguarde...</button>)}
           </p>
 
+          {/* ERRO */}
+          {error && <p className="error">{error}</p>}
 
             </Form>
           </Card>

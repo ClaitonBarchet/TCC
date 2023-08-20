@@ -6,11 +6,13 @@ import { useAuthValue } from "../../context/AuthContext";
 import { useInsertDocument } from "../../hooks/useInsertDocument";
 import { FormGroup, Label, Form, Input, Card, Button  } from 'reactstrap';
 import { useFetchDocuments } from '../../hooks/useFetchDocuments';
+import { useUpdateDocument } from "../../hooks/useUpdateDocument";
 
 const Editar = () => {
   const location = useLocation();
   const dados = location.state.post
 
+  const [id, setId] = useState(dados.id)
   const [data, setData ] = useState(dados.data);
   const [placa, setPlaca ] = useState(dados.placa);
   const [carregamento, setCarregamento] = useState(dados.carregamento);
@@ -25,7 +27,7 @@ const Editar = () => {
   const [formError, setFormError] = useState("");
   const {user} = useAuthValue();
 
-  const {insertDocument, response} = useInsertDocument("posts");
+  const {updateDocument, response} = useUpdateDocument("posts");
 
   const navigate = useNavigate()
   
@@ -40,7 +42,9 @@ const Editar = () => {
 
   if (formError) return
 
-  insertDocument({
+  // insertDocument({
+    updateDocument({
+    id,
     data,
     mes: data.toLocaleString('default', {month: 'long'}),
     ano: data.toLocaleString('default', {year: 'long'}),
@@ -48,12 +52,12 @@ const Editar = () => {
     placa: placa.toUpperCase(),
     carregamento: carregamento.toUpperCase(),
     cliente: cliente.toUpperCase(),
-    material: material.toUpperCase(), 
+    material: material.toUpperCase(),
     volume,
-    hoInicial, 
+    hoInicial,
     hoFinal,
     hoProduzido: hoFinal - hoInicial,
-    observações  
+    observações
   })
 
   setData("")

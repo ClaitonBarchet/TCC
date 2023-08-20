@@ -1,13 +1,12 @@
 import React, {useState, useContext} from 'react'
 import { useFetchDocuments } from '../../hooks/useFetchDocuments'
 import { AuthContext } from '../../context/AuthContext'
-import { FormGroup, Label, Form, Input, Card, Button, Table  } from 'reactstrap';
-import Editar from '../editar/Editar';
+import { Button, Table  } from 'reactstrap';
 
 import { db } from '../../firebase/config';
 import { collection, doc, deleteDoc } from 'firebase/firestore';
-import Viagem from '../viagem/Viagem';
 import { useNavigate } from 'react-router-dom';
+import { NavLink } from "react-router-dom";
 
 const Histórico = () => {
 
@@ -66,7 +65,6 @@ const search = () => {
       observações
       )
    }
-
 
 //DELEÇÃO
   const deletar = async(id) => {
@@ -149,7 +147,13 @@ const search = () => {
                 <td>{post.observações}</td>
                 <td>
 
-                  <button  className="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={()=>editar(post)}>Editar</button>
+                {/* <button  className="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={()=>editar(post)}>Editar</button>
+                 */}
+
+                <li className="nav-item">
+                <NavLink to= "/Editar" state={{post}} className = {"btn btn-warning"} onClick={()=>editar(post)}>  EDITAR  </NavLink>
+                </li>
+                
                 </td>
                 <td><button  className="btn btn-danger" onClick={()=>deletar(post.id)}>X</button></td>
               </tr>
@@ -161,50 +165,7 @@ const search = () => {
           <div>
           </div>
         )}
-
-                {/* ----------------------------------- MODAL CAMPOS EDITAR */}
-                {/* <div class="modal fade bg-primary-subtle" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"> */}
-                {/* <div class="p-3 mb-2 bg-primary text-white"> */}
-                {/* <Table striped> */}
-                    {/* <thead> */}
-                      {/* <tr> */}
-                        {/* <th scope="col">DATA</th> */}
-                        {/* <th scope="col">PLACA</th> */}
-                        {/* <th scope="col">CARREGAMENTO</th> */}
-                        {/* <th scope="col">CLIENTE</th> */}
-                        {/* <th scope="col">MATERIAL</th> */}
-                        {/* <th scope="col">VOLUME</th> */}
-                        {/* <th scope="col">HO. INICIAL</th> */}
-                        {/* <th scope="col">HO. FINAL</th> */}
-                        {/* <th scope="col">DISTÂNCIA</th> */}
-                        {/* <th scope="col">OBSERVAÇÕES</th> */}
-                        {/* <th scope="col">AÇÕES</th>                    */}
-                      {/* </tr> */}
-                    {/* </thead> */}
-                    {/* <tbody> */}
-                      {/* {postsFiltrados && postsFiltrados.map((post, index) => ( */}
-
-                       {/* <tr key={index}> */}
-                        {/* <td>{post.data}</td> */}
-                        {/* <td>{post.placa}</td> */}
-                        {/* <td>{post.carregamento}</td> */}
-                        {/* <td>{post.cliente}</td> */}
-                        {/* <td>{post.material}</td> */}
-                        {/* <td>{post.volume}</td> */}
-                        {/* <td>{post.hoInicial}</td> */}
-                        {/* <td>{post.hoFinal}</td> */}
-                        {/* <td>{post.hoProduzido}</td> */}
-                        {/* <td>{post.observações}</td> */}
-                        {/* <td><button  className="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={()=>editar(post.id)}>Editar</button></td> */}
-                        {/* <td><button  className="btn btn-danger" onClick={()=>deletar(post.id)}>X</button></td> */}
-                      {/* </tr> */}
-                     {/* ))} */}
-                    {/* </tbody>  */}
-                  {/* </Table> */}
-                  {/* </div> */}
-                {/* </div> */}
-        
-        
+      
         </div>
     </div>
   )

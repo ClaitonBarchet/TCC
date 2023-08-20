@@ -1,16 +1,13 @@
-
 import { useNavigate } from "react-router-dom";
-
 import {
     getAuth,
-    createUsrWithEmailAnPassword,
     signInWithEmailAndPassword,
     updateProfile,
     signOut,
     createUserWithEmailAndPassword
 } from 'firebase/auth'
 
-import { useState, useEffect, useInsertionEffect } from "react"
+import { useState, useEffect } from "react"
 
 export const useAuthentication = () => {
     const [error,setError] = useState (null)
@@ -34,8 +31,7 @@ const createUser = async (dataUser) => {
     setLoading(true)
     setError(null);
 
-    try{
-            
+    try{ 
         const {user} = await createUserWithEmailAndPassword(
             auth,
             dataUser.emailconcatenado,
@@ -70,14 +66,12 @@ const createUser = async (dataUser) => {
         setError(systemErrorMessage);
         console.log(systemErrorMessage)
     }
-
 }
 
 //logout - sign out
 const logout = () => {
     checkIfIsCancelled();
     signOut(auth)
-    
 }
 
 // login - sign in
@@ -93,7 +87,7 @@ try {
     await signInWithEmailAndPassword(auth, dataUser.emailconcatenado, dataUser.password);
     setLoading(false);
 
-    } catch (error) {
+} catch (error) {
 
     let systemErrorMessage;
 
