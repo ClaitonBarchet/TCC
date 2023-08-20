@@ -128,7 +128,6 @@ const search = () => {
                 <th scope="col">HO. FINAL</th>
                 <th scope="col">DISTÂNCIA</th>
                 <th scope="col">OBSERVAÇÕES</th>
-                {/* <th scope="col">AÇÕES</th>                    */}
               </tr>
             </thead>
             <tbody>
@@ -147,15 +146,12 @@ const search = () => {
                 <td>{post.observações}</td>
                 <td>
 
-                {/* <button  className="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={()=>editar(post)}>Editar</button>
-                 */}
-
                 <li className="nav-item">
                 <NavLink to= "/Editar" state={{post}} className = {"btn btn-warning"} onClick={()=>editar(post)}>  EDITAR  </NavLink>
                 </li>
                 
                 </td>
-                <td><button  className="btn btn-danger" onClick={()=>deletar(post.id)}>X</button></td>
+                <td><button  className="btn btn-danger" onClick={()=>deletar(post.id)}> X </button></td>
               </tr>
             ))}
             </tbody> 

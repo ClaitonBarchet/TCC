@@ -1,19 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { FormGroup, Label, Form, Input, Card, Button  } from 'reactstrap';
 import { useAuthentication } from "../../hooks/useAuthentication";
-import {
-  getAuth,
-  createUsrWithEmailAnPassword,
-  signInWithEmailAndPassword,
-  updateProfile,
-  signOut,
-  createUserWithEmailAndPassword
-} from 'firebase/auth'
 
 const Login = () => {
     const [ displayName, setDisplayName] = useState ("")
     const [ sobrename, setSobrename] = useState("")
-    const [ emailconcatenado] = useState("")
     const [ password, setPassword] = useState("")
     const { error, setError, loading } = useAuthentication();
     const { login, error: authError } = useAuthentication();
@@ -36,7 +27,7 @@ try{
         console.log(error.code)
         console.log(error.message)
          console.log(typeof error.message)
-  } catch (error) {
+} catch (error) {
     // ERRO SENHA ERRADA, ARRUMAR - QUAL O CODIGO DO ERRO?
         console.log("ESTOU AQUI")
          console.log(error.message)
@@ -114,8 +105,13 @@ try{
           <p>
           {!loading && <Button color="primary" outline>Logar</Button>}
 
+          {/* ESQUECEU SENHA */}
+          {!loading && <Button  color="primary" outline>Esqueci minha senha</Button>}
           {loading && (<button className="btn" disabled>Aguarde...</button>)}
           </p>
+
+          {/* <div className="d-flex justify-content-center">
+        <Card style={{width: '18rem'}}> */}
 
           {/* ERRO */}
           {error && <p className="error">{error}</p>}

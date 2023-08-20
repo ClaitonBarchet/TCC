@@ -2,7 +2,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 import styles from "react"
-// import styles from "./components/navbar/Navbar.css"
 
 // hooks
 import { useState, useEffect } from "react";

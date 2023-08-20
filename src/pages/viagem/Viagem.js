@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuthValue } from "../../context/AuthContext";
 import { useInsertDocument } from "../../hooks/useInsertDocument";
 import { FormGroup, Label, Form, Input, Card, Button  } from 'reactstrap';
@@ -15,23 +15,15 @@ const Viagem = () => {
   const [volume, setVolume ] = useState("");
   const [hoInicial, setHoInicial ] = useState("");
   const [hoFinal, setHoFinal ] = useState("");
-  const [hoProduzido, setHoProduzido ] = useState("");
   const [observações, setObservações ] = useState("");
 
   const [formError, setFormError] = useState("");
   const {user} = useAuthValue();
 
-  const location = useLocation()
-  let id = location.state
-
   const {insertDocument, response} = useInsertDocument("posts");
 
   const navigate = useNavigate()
   
-  const editarViagem = () => {
- 
-  }
-
   const handleSubmit = (e) => {
     e.preventDefault();
     setFormError("")
@@ -234,12 +226,8 @@ const Viagem = () => {
           </FormGroup>
 
           <p>
-          {!response.loading && <Button color="primary" outline className="btn">Registrar</Button>}
-          {response.loading && (
-            <button className="btn" disabled>
-              Aguarde...
-            </button>
-             )}
+          {!response.loading && <Button color="primary" outline className="btn">REGISTRAR</Button>}
+          {response.loading && (<button className="btn" disabled>Aguarde...</button>)}
              {response.error && <p className="error">{response.error}</p>}
              {formError && <p className="error">{formError}</p>}
              </p>

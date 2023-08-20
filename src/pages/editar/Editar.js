@@ -3,16 +3,14 @@ import React from 'react'
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuthValue } from "../../context/AuthContext";
-import { useInsertDocument } from "../../hooks/useInsertDocument";
 import { FormGroup, Label, Form, Input, Card, Button  } from 'reactstrap';
-import { useFetchDocuments } from '../../hooks/useFetchDocuments';
 import { useUpdateDocument } from "../../hooks/useUpdateDocument";
 
 const Editar = () => {
   const location = useLocation();
   const dados = location.state.post
 
-  const [id, setId] = useState(dados.id)
+  const [id] = useState(dados.id)
   const [data, setData ] = useState(dados.data);
   const [placa, setPlaca ] = useState(dados.placa);
   const [carregamento, setCarregamento] = useState(dados.carregamento);
@@ -21,7 +19,6 @@ const Editar = () => {
   const [volume, setVolume ] = useState(dados.volume);
   const [hoInicial, setHoInicial ] = useState(dados.hoInicial);
   const [hoFinal, setHoFinal ] = useState(dados.hoFinal);
-  const [hoProduzido, setHoProduzido ] = useState(dados.hoProduzido);
   const [observações, setObservações ] = useState(dados.observações);
 
   const [formError, setFormError] = useState("");
@@ -42,7 +39,6 @@ const Editar = () => {
 
   if (formError) return
 
-  // insertDocument({
     updateDocument({
     id,
     data,
@@ -72,7 +68,7 @@ const Editar = () => {
 
   alert("Edição realizada com sucesso!")
 
- navigate("/");
+ navigate("/Histórico");
 
 }
 
@@ -82,7 +78,6 @@ const Editar = () => {
         <Card style={{width: '18rem'}}>
         <Form onSubmit={handleSubmit} className="ms-2 me-2">
         <h3>EDIÇÃO DE VIAGEM</h3>
-
 
           {/*DATA*/}
           <FormGroup className="text-start mt-2">
@@ -113,7 +108,6 @@ const Editar = () => {
             placeholder="Placa do veículo"
             onChange={(e) => setPlaca(e.target.value)}
             value={placa}
-            // value={selectedRecord.data}
             />
             </FormGroup>
 
@@ -235,15 +229,12 @@ const Editar = () => {
           </FormGroup>
 
           <p>
-          {!response.loading && <Button color="primary" outline className="btn">Registrar</Button>}
-          {response.loading && (
-            <button className="btn" disabled>
-              Aguarde...
-            </button>
-             )}
-             {response.error && <p className="error">{response.error}</p>}
-             {formError && <p className="error">{formError}</p>}
-             </p>
+          {!response.loading && <Button color="primary" outline className="btn">SALVAR</Button>}
+          
+          {response.error && <p className="error">{response.error}</p>}
+
+          {formError && <p className="error">{formError}</p>}
+          </p>
 
              </Form>
              </Card>
