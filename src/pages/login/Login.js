@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { FormGroup, Label, Form, Input, Card, Button  } from 'reactstrap';
 import { useAuthentication } from "../../hooks/useAuthentication";
+import { NavLink } from "react-router-dom";
 
 const Login = () => {
     const [ displayName, setDisplayName] = useState ("")
     const [ sobrename, setSobrename] = useState("")
+    const [ email, setEmail ] = useState("")
     const [ password, setPassword] = useState("")
     const { error, setError, loading } = useAuthentication();
     const { login, error: authError } = useAuthentication();
@@ -16,9 +18,8 @@ const Login = () => {
 
         const user = {
             displayName,
-            sobrename,
             password,
-            emailconcatenado: displayName+"."+sobrename+"@email.com.br"
+            email
         }
         // console.log(emailconcatenado)
 try{
@@ -54,41 +55,28 @@ try{
             
             <Form onSubmit={handleSubmit} className="ms-2 me-2">
 
-              <FormGroup className="text-start mt-2" >
+              {/* <FormGroup className="text-start mt-2" > */}
               <h3>LOGIN</h3>
-                <Label  for="exampleText"> 
-                Nome:
-                </Label>
-                <Input
-                  type="name"
-                  name="displayName"
-                  style={{textTransform:"uppercase"}}
-                  required
-                  placeholder="Nome do usuário"
-                  value={displayName}
-                  onChange={(e) => setDisplayName(e.target.value)}
-                  />
-              </FormGroup>
 
-              <FormGroup className="text-start">
-                <Label for="sobrename">
-                  Sobrenome:
+                <FormGroup className="text-start">
+                <Label for="email">
+                  Email:
                 </Label>
                 <Input
-                   type="sobrename"
-                   name="sobrename"
+                   type="email"
+                   name="email"
                    style={{textTransform:"uppercase"}}
                    required
-                   placeholder="Sobrenome do usuário"
+                   placeholder="email do usuário"
      
-                   value={sobrename}
-                   onChange={(e) => setSobrename(e.target.value)}
+                   value={email}
+                   onChange={(e) => setEmail(e.target.value)}
                 />
               </FormGroup>
 
               <FormGroup className="text-start">
                 <Label for="senha">
-                  Senha:
+                Senha:
                 </Label>
                 <Input
                    type="password"
@@ -106,12 +94,12 @@ try{
           {!loading && <Button color="primary" outline>Logar</Button>}
 
           {/* ESQUECEU SENHA */}
-          {!loading && <Button  color="primary" outline>Esqueci minha senha</Button>}
+
+          <NavLink color="primary" to= "/alterarsenha">Esqueci minha senha</NavLink>
+
+
           {loading && (<button className="btn" disabled>Aguarde...</button>)}
           </p>
-
-          {/* <div className="d-flex justify-content-center">
-        <Card style={{width: '18rem'}}> */}
 
           {/* ERRO */}
           {error && <p className="error">{error}</p>}
@@ -120,7 +108,6 @@ try{
           </Card>
         </div>
       </div>
-
     </div>
   )
 }

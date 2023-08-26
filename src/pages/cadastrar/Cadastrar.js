@@ -1,14 +1,12 @@
 import { useState, useEffect } from "react";
 import { useAuthentication } from "../../hooks/useAuthentication";
-import {FormGroup, Label, Form, Input, Card, Button  } from 'reactstrap';
+import { FormGroup, Label, Form, Input, Card, Button  } from 'reactstrap';
 
 const Cadastrar = () => {
-    const [displayName, setDisplayName] = useState ("")
-    const [sobrename, setSobrename] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
-    const { createUser, error,setError, loading } = useAuthentication();
+    const {createUser, error,setError, loading } = useAuthentication();
     
     // MÉTODO
       const handleSubmit = async (e) => {
@@ -16,11 +14,8 @@ const Cadastrar = () => {
        setError(null)
 
         const user = {
-            displayName,
-            sobrename,
             email,
             password,
-            emailconcatenado: displayName+"."+sobrename+"@email.com.br"
         }
 
         //VERIFICA SE AS SENHAS SÃO IGUAIS
@@ -38,8 +33,7 @@ const Cadastrar = () => {
         }
 
         if (error == null){
-        setDisplayName("")
-        setSobrename("")
+        setEmail("")
         setPassword("")
         setConfirmPassword("")
         }
@@ -54,42 +48,25 @@ const Cadastrar = () => {
         <div className="d-flex justify-content-center">
         <Card style={{width: '18rem'}}>
 
-             {/*NOME*/}
+          {/* NOME */}
           <Form className="ms-2 me-2">
-          <FormGroup className="text-start mt-2" >
-          <h3>CADASTRO</h3>
-          <Label  for="exampleText"> 
-            Nome:
-            </Label>
-            <Input
-              
-              type="name"
-              name="displayName"
-              style={{textTransform:"uppercase"}}
-              required
-              placeholder="Nome do usuário"
 
-              value={displayName}
+          <h3>CADASTRAR</h3>
 
-              onChange={(e) => setDisplayName(e.target.value)}
-            />
-          </FormGroup>
-
-
-          {/*SOBRENOME*/}
+          {/*EMAIL*/}
           <FormGroup className="text-start">
-          <Label for="sobrename">
-            Sobrenome:
+          <Label for="email">
+            Email:
           </Label>
             <Input
-              type="sobrename"
-              name="sobrename"
+              type="email"
+              name="email"
               style={{textTransform:"uppercase"}}
               required
-              placeholder="Sobrenome do usuário"
+              placeholder="Email do usuário"
 
-              value={sobrename}
-              onChange={(e) => setSobrename(e.target.value)}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </FormGroup>
 

@@ -33,13 +33,14 @@ const createUser = async (dataUser) => {
     try{ 
         const {user} = await createUserWithEmailAndPassword(
             auth,
-            dataUser.emailconcatenado,
+            dataUser.email,
             dataUser.password
         )
 
             await updateProfile(user, {
                 displayName: dataUser.displayName,
-                sobrename: dataUser.sobrename
+                // sobrename: dataUser.sobrename
+                email: dataUser.email
             })
 
             setLoading(false);
@@ -83,7 +84,7 @@ setError(false)
 
 try {
 
-    await signInWithEmailAndPassword(auth, dataUser.emailconcatenado, dataUser.password);
+    await signInWithEmailAndPassword(auth, dataUser.email, dataUser.password);
     setLoading(false);
 
 } catch (error) {

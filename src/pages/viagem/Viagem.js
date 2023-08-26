@@ -4,31 +4,40 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuthValue } from "../../context/AuthContext";
 import { useInsertDocument } from "../../hooks/useInsertDocument";
-import { FormGroup, Label, Form, Input, Card, Button  } from 'reactstrap';
+import { FormGroup, Label, Form, Input, Card, Button } from 'reactstrap';
 
 const Viagem = () => {
-  const [data, setData ] = useState("");
-  const [placa, setPlaca ] = useState("");
-  const [carregamento, setCarregamento] = useState("");
-  const [cliente, setCliente ] = useState("");
-  const [material, setMaterial ] = useState("");
-  const [volume, setVolume ] = useState("");
-  const [hoInicial, setHoInicial ] = useState("");
-  const [hoFinal, setHoFinal ] = useState("");
-  const [observações, setObservações ] = useState("");
+  const [ data, setData ] = useState("");
+  const [ placa, setPlaca ] = useState("");
+  const [ carregamento, setCarregamento ] = useState("");
+  const [ cliente, setCliente ] = useState("");
+  const [ material, setMaterial ] = useState("");
+  const [ volume, setVolume ] = useState("");
+  const [ hoInicial, setHoInicial ] = useState("");
+  const [ hoFinal, setHoFinal ] = useState("");
+  const [ observações, setObservações ] = useState("");
+  const [ formError, setFormError ] = useState("");
+  const { user} = useAuthValue();
 
-  const [formError, setFormError] = useState("");
-  const {user} = useAuthValue();
-
-  const {insertDocument, response} = useInsertDocument("posts");
+  const {response, insertDocument} = useInsertDocument("posts");
 
   const navigate = useNavigate()
   
   const handleSubmit = (e) => {
     e.preventDefault();
     setFormError("")
-    
-  // checar todos os valores
+
+  // Validar placa
+  // const regexPlaca = /^[a-zA-Z]{3} [0-9]{4}$/;
+  
+  // if (regexPlaca.test(placa)){
+  //   console.log("Placa válida")
+  // }else{
+  //   setFormError("Informe uma placa válida")
+  //   console.log("Placa inválida")
+  // }
+
+  // Checar todos os valores
   if (!placa || !carregamento || !cliente || !volume || !hoInicial || !hoFinal || !data){
     setFormError("Por favor, preencha todos os campos!")
   }
@@ -50,7 +59,6 @@ const Viagem = () => {
     hoProduzido: hoFinal - hoInicial,
     observações  
   })
-
 
   setData("")
   setPlaca("")
@@ -111,7 +119,7 @@ const Viagem = () => {
            {/*CARREGAMENTO*/}
            <FormGroup>
            <Label>
-            Carregamento:
+            Carregamento (remetente):
             </Label>
             <Input
             type="text"
@@ -127,7 +135,7 @@ const Viagem = () => {
            {/*CLIENTE*/}
            <FormGroup>
            <Label>
-            Cliente:
+            Cliente (destinatário):
             </Label>
             <Input
             type="text"
@@ -143,7 +151,7 @@ const Viagem = () => {
           {/*MATERIAL*/}
           <FormGroup>
           <Label>
-            Material:
+            Material (produto):
             </Label>
             <Input
             type="value"
@@ -226,15 +234,15 @@ const Viagem = () => {
           </FormGroup>
 
           <p>
-          {!response.loading && <Button color="primary" outline className="btn">REGISTRAR</Button>}
-          {response.loading && (<button className="btn" disabled>Aguarde...</button>)}
-             {response.error && <p className="error">{response.error}</p>}
-             {formError && <p className="error">{formError}</p>}
-             </p>
+            {!response.loading && <Button color="primary" outline className="btn">REGISTRAR</Button>}
+            {response.loading && (<button className="btn" disabled>Aguarde...</button>)}
+            {response.error && <p className="error">{response.error}</p>}
+            {formError && <p className="error">{formError}</p>}
+          </p>
 
-             </Form>
-             </Card>
-             </div>
+          </Form>
+          </Card>
+          </div>
       </div>
     )
   }
