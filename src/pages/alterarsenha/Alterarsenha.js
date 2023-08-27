@@ -1,41 +1,25 @@
-import { useState, useEffect } from "react";
-import { useAuthentication } from "../../hooks/useAuthentication";
-import { FormGroup, Label, Form, Input, Card, Button  } from 'reactstrap';
+import React, {useState} from "react";
+import {FormGroup, Label, Form, Input, Card, Button } from 'reactstrap';
+import {Link, Navigate} from 'react-router-dom';
 
-const Alterarsenha = () => {
-    const [ email, setEmail ] = useState("")
-    const [ password, setPassword]  = useState("")
-    const { Debug, error,setError, loading } = useAuthentication();
+import firebase from "../firebase/firebase"
+import 'firebase/auth';
 
-    if (user != null) {
-      AuthenticatorAssertionResponse.SendPasswordResetEmailAsync(email).ContinueWith(task => {
-        if(task.IsCanceled) {
-          Debug.LogError("SendPasswordResetEmailAsync was canceled.");
-          return;
-        }
-        if(task.IsFaulted) {
-          Debug.LogError("SendPasswordResetEmaiAsync encountered an error: " + task.Exception);
-          return;
-        }
-        Debug.Log("Password reset email sent successfully.");
-      });
-    }
-    
-    // MÉTODO
-      const handleSubmit = async (e) => {
-       e.preventDefault()
-       setError(null)
+function Alterarsenha(){
 
-        // const user = {
-        //     email,
-        //     password,
-        // }
+  const [email, setEmail] = useState('');
+  const [mensagem, setMensagem] = useState('');
+  const [sucesso, setSucesso] = useState('');
 
-        if (error == null){
-        setEmail("")
-        }
+function recuperarSenha(){
 
-    };
+  firebase.auth().sendPasswordResetEmail(email).then(resultado => {
+    setMensagem("");
+    alert("Email enviado com sucesso");
+  }).catch(erro => {
+    setMensagem("Erro ao enviar email: " + erro.message);
+  })
+};
 
   return (
     <div>
@@ -66,19 +50,26 @@ const Alterarsenha = () => {
           </FormGroup>
 
           {/*SOLICITAR ALTERAÇÃO DE SENHA*/}
-          <p>
+          {/* <p>
           {!loading && <Button
             color="primary"
             outline
           type="button" onClick={handleSubmit} className="btn">Redefinir Senha</Button>}
           {loading && (<Button className="btn" disabled>Aguarde...</Button>)}
-          </p>
+          </p> */}
+          <div>
+          <button onClick={recuperarSenha} className="w-100 btn btn-lg btn-primary mt-3" type="button">Enviar</button>
+            {/* <input inChange = {(e) => setEmail(e.target.value)} type="email" className="form-control" id="floatingInput" placeholder="E-mail" />
+            <label for="flatingInpu">E-mail</label> */}
+          </div>
+
+            <button  type="button">Enviar</button>
 
           </Form>
           </Card>
         </div>
     </div>
   )
-}
+ }
 
 export default Alterarsenha

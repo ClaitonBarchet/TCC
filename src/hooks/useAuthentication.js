@@ -19,9 +19,9 @@ const [cancelled, setCancelled] = useState(false)
 const auth = getAuth()
 
 function checkIfIsCancelled () {
-if (cancelled) {
-    return;
-}
+    if (cancelled) {
+        return;
+    }
 }
 
 const createUser = async (dataUser) => {
