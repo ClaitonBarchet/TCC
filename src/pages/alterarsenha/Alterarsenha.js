@@ -1,29 +1,31 @@
 import React, {useState} from "react";
 import {FormGroup, Label, Form, Input, Card, Button } from 'reactstrap';
-import {Link, Navigate} from 'react-router-dom';
+import {getAuth, sendPasswordResetEmail } from "firebase/auth";
+import {NavLink } from "react-router-dom";
 
-import firebase from "../firebase/firebase"
 import 'firebase/auth';
+
+const auth = getAuth()
 
 function Alterarsenha(){
 
   const [email, setEmail] = useState('');
   const [mensagem, setMensagem] = useState('');
-  const [sucesso, setSucesso] = useState('');
 
 function recuperarSenha(){
 
-  firebase.auth().sendPasswordResetEmail(email).then(resultado => {
+  sendPasswordResetEmail(auth, email)
+  .then(() => {
     setMensagem("");
     alert("Email enviado com sucesso");
-  }).catch(erro => {
+  }).catch((erro) => {
     setMensagem("Erro ao enviar email: " + erro.message);
   })
+  
 };
 
   return (
     <div>
-
         <div className="d-flex justify-content-center">
         <Card style={{width: '18rem'}}>
 
@@ -50,20 +52,15 @@ function recuperarSenha(){
           </FormGroup>
 
           {/*SOLICITAR ALTERAÇÃO DE SENHA*/}
-          {/* <p>
-          {!loading && <Button
-            color="primary"
-            outline
-          type="button" onClick={handleSubmit} className="btn">Redefinir Senha</Button>}
-          {loading && (<Button className="btn" disabled>Aguarde...</Button>)}
-          </p> */}
-          <div>
-          <button onClick={recuperarSenha} className="w-100 btn btn-lg btn-primary mt-3" type="button">Enviar</button>
-            {/* <input inChange = {(e) => setEmail(e.target.value)} type="email" className="form-control" id="floatingInput" placeholder="E-mail" />
-            <label for="flatingInpu">E-mail</label> */}
-          </div>
+          <p>
+          <NavLink color="primary" outline onClick={recuperarSenha} className="btn">Redefinir Senha</NavLink>
+          </p>
+          
+          <p></p>
 
-            <button  type="button">Enviar</button>
+          <p>
+          <NavLink color="primary" to = "/login" className="btn">Voltar</NavLink>
+          </p>
 
           </Form>
           </Card>

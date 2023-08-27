@@ -82,7 +82,7 @@ try{
                    type="password"
                    name="password"
                    required
-                   placeholder="Insira sua senha"
+                   placeholder="INSIRA SUA SENHA"
      
                    value={password}
                    onChange={(e) => setPassword(e.target.value)}
@@ -91,12 +91,15 @@ try{
 
           {/*CADASTRAR*/}
           <p>
-          {!loading && <Button color="primary" outline>Logar</Button>}
+          {!loading && <Button color="primary" outline>ENTRAR</Button>}
 
           {/* ESQUECEU SENHA */}
 
-          <NavLink color="primary" to= "/alterarsenha">Esqueci minha senha</NavLink>
+          <p></p>
 
+          <p>
+          <NavLink color="primary" to= "/alterarsenha">Esqueci minha senha</NavLink>
+          </p>
 
           {loading && (<button className="btn" disabled>Aguarde...</button>)}
           </p>

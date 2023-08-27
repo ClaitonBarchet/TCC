@@ -1,5 +1,6 @@
 import firebase from 'firebase';
 
+
 const firebaseConfig = {
     apiKey: "AIzaSyCs0zAiusWZVoJ82fd_ABNaiFv3_ZsyhfQ",
     authDomain: "controle-viagens-b9f5f.firebaseapp.com",

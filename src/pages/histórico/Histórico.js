@@ -12,7 +12,7 @@ const Histórico = () => {
 
 const navigate = useNavigate();
  //get
-const  {documents: posts, loading } = useFetchDocuments("posts")
+const {documents: posts, loading } = useFetchDocuments("posts")
 const [mes, setMes] = useState("");
 const [postsFiltrados, setPostsFiltrados] = useState([]);
 const [ano, setAno] = useState("");
