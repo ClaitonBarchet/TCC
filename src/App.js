@@ -43,10 +43,9 @@ import Alterarsenha from "./pages/alterarsenha/Alterarsenha";
   return (<div>
     <body>
     <p></p>
-    <h3><strong>Controle de Viagens</strong></h3>
-    <p></p>
         <AuthProvider value={{user}}>
           <BrowserRouter>
+          <NavLink color="primary" to= "/"><h3>CONTROLE DE VIAGENS</h3></NavLink>
 
           {/* ul -> nav && li -> a */}
                 <nav className="navbar bg-primary navbar-expand-lg" data-bs-theme="dark">
